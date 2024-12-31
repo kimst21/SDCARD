@@ -2,6 +2,11 @@
 #include "SD.h"          // SD 카드 제어 라이브러리
 #include "SPI.h"         // SPI 통신 라이브러리
 
+#define CS_PIN 39
+#define MOSI_PIN 6
+#define CLK_PIN 36
+#define MISO_PIN 1
+
 // 디렉토리의 내용을 나열하는 함수
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\n", dirname);  // 디렉토리 경로 출력
@@ -160,7 +165,12 @@ void testFileIO(fs::FS &fs, const char * path){
 
 void setup(){
     Serial.begin(115200);
-    if(!SD.begin()){                                 // SD 카드 초기화
+
+SPIClass spi = SPIClass(HSPI);
+// SPI 객체 생성
+ spi.begin(CLK_PIN, MISO_PIN, MOSI_PIN, CS_PIN);
+
+    if(!SD.begin(CS_PIN, spi)){                                 // SD 카드 초기화
         Serial.println("Card Mount Failed");
         return;
     }
