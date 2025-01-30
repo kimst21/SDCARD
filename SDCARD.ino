@@ -2,10 +2,10 @@
 #include "SD.h"          // SD 카드 제어 라이브러리
 #include "SPI.h"         // SPI 통신 라이브러리
 
-#define CS_PIN 39
-#define MOSI_PIN 6
-#define CLK_PIN 36
-#define MISO_PIN 1
+#define CS_PIN 10
+#define MOSI_PIN 11
+#define CLK_PIN 12
+#define MISO_PIN 13
 
 // 디렉토리의 내용을 나열하는 함수
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
